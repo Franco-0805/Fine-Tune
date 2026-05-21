@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mimic AI - Tone Mimicking Chatbot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="welcome-modal" id="welcome-modal">
+        <div class="welcome-card">
+            <h2>Who do you want to mimic?</h2>
+            <p>Enter a persona name and the system will retrieve their background, quotes, and speaking style.</p>
+            <input type="text" id="welcome-persona" placeholder="e.g. Elon Musk, Shakespeare, Einstein">
+            <button class="btn-primary" id="welcome-confirm">Search Persona</button>
+        </div>
+    </div>
+    <div class="app-container">
+        <!-- Sidebar for Training / Corpus Upload -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.4 3 7.8 3 10.6a1.4 1.4 0 0 0 1.4 1.4h7.2a1.4 1.4 0 0 0 1.4-1.4c0-2.8 3-5.2 3-10.6a8 8 0 0 0-8-8z"/><path d="M9 22h6"/></svg>
+                    <h1>Mimic AI</h1>
+                </div>
+                <p class="subtitle">Tone Mimicking Engine</p>
+            </div>
+
+            <div class="persona-section">
+                <h3>Persona Setup</h3>
+                <div class="input-group">
+                    <label for="persona-name">Persona Name</label>
+                    <input type="text" id="persona-name" placeholder="e.g. Shakespeare, Elon..." value="Custom Persona">
+                </div>
+                <button class="btn-secondary" id="new-persona-btn">Add Another Persona</button>
+                <div class="persona-summary hidden" id="persona-summary">
+                    <h3>Retrieved Persona Profile</h3>
+                    <div class="persona-profile" id="persona-profile"></div>
+                </div>
+            </div>
+
+            <div class="training-section">
+                <h3>Knowledge Base (Corpus)</h3>
+                <div class="upload-area" id="upload-area">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                    <p>Drag & Drop text files here</p>
+                    <span class="upload-hint">or click to browse (.txt, .md, .docx)</span>
+                    <input type="file" id="file-upload" accept=".txt,.md,.docx" hidden>
+                </div>
+                
+                <div class="corpus-list" id="corpus-list">
+                    <!-- Uploaded files will appear here -->
+                </div>
+
+                <button class="btn-primary" id="train-btn">
+                    <span class="btn-text">Start Learning</span>
+                    <div class="loader hidden"></div>
+                </button>
+                <div class="status-indicator" id="training-status">
+                    <span class="dot"></span>
+                    <span class="status-text">Ready to learn</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-container">
+            <header class="chat-header">
+                <div class="chat-header-info">
+                    <div class="avatar" id="header-avatar">CP</div>
+                    <div class="header-details">
+                        <h2 id="chat-title">Custom Persona</h2>
+                        <p class="bot-status"><span class="status-dot active"></span>Online</p>
+                    </div>
+                </div>
+                <div class="chat-actions">
+                    <button class="icon-btn" title="Clear Chat">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    </button>
+                </div>
+            </header>
+
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot-message">
+                    <div class="message-avatar">CP</div>
+                    <div class="message-content">
+                        <p>Hello! I am ready to mimic the tone you provide. Upload some text in the sidebar, click "Start Learning", and let's chat!</p>
+                        <span class="message-time">Just now</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <div class="input-wrapper">
+                    <textarea id="message-input" placeholder="Type a message..." rows="1"></textarea>
+                    <button class="btn-send" id="send-btn" disabled>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
